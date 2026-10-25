@@ -331,7 +331,7 @@ def handler(event):
     if not prompt_id:
         return {"status": "error", "message": "Failed to queue workflow", "raw": queued}
 
-    max_wait = 900
+    max_wait = 1500
     start_time = time.time()
     
     while time.time() - start_time < max_wait:
