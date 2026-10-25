@@ -103,7 +103,7 @@ except Exception as e:
 
 # 4. Запуск ComfyUI в фоне (выгрузка неактивных моделей при смене этапа)
 cd /workspace/ComfyUI
-python -u main.py --listen 127.0.0.1 --port 8188 --reserve-vram 0.5 --lowvram > /workspace/comfyui.log 2>&1 &
+python -u main.py --listen 127.0.0.1 --port 8188 --novram > /workspace/comfyui.log 2>&1 &
 COMFY_PID=$!
 
 echo "Waiting for ComfyUI and custom nodes to initialize (PID: $COMFY_PID)..."
