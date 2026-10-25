@@ -65,7 +65,7 @@ def ensure_comfyui_ready():
     print("=== [INIT] Starting ComfyUI process in background... ===", flush=True)
     log_file = open(LOG_PATH, "w", encoding="utf-8")
     proc = subprocess.Popen(
-        ["python", "-u", "main.py", "--listen", "127.0.0.1", "--port", "8188", "--reserve-vram", "0.5", "--normalvram"],
+        ["python", "-u", "main.py", "--listen", "127.0.0.1", "--port", "8188", "--reserve-vram", "0.5", "--lowvram"],
         cwd="/workspace/ComfyUI",
         stdout=log_file,
         stderr=subprocess.STDOUT
