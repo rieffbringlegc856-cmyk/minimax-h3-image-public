@@ -276,6 +276,9 @@ def handler(event):
 
     # 9. LoRA MiniMax (цепочка стандартных слотов LoraLoaderModelOnly)
     minimax_loras = job_input.get("loras", [])
+    # Файл-заглушка для пустых слотов (с силой 0.0), чтобы ComfyUI не ругался на 'None'
+    DUMMY_LORA = "cinematic_fantasy.safetensors"
+
     for slot_idx in range(1, 5):
         slot_node_id = f"9657:{slot_idx}"
         if slot_node_id in wf and "inputs" in wf[slot_node_id]:
@@ -289,6 +292,8 @@ def handler(event):
                 wf[slot_node_id]["inputs"]["lora_name"] = lora_name
                 wf[slot_node_id]["inputs"]["strength_model"] = strength
             else:
+                # Ставим валидный файл, но выключаем силу в 0.0
+                wf[slot_node_id]["inputs"]["lora_name"] = DUMMY_LORA
                 wf[slot_node_id]["inputs"]["strength_model"] = 0.0
 
     # 10. LoRA Krea 2
