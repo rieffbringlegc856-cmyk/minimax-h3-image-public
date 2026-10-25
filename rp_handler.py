@@ -274,21 +274,22 @@ def handler(event):
     if "3" in wf and "inputs" in wf["3"]:
         wf["3"]["inputs"]["image_urls"] = json.dumps(image_urls) if isinstance(image_urls, list) else image_urls
 
-    # 9. LoRA MiniMax
+    # 9. LoRA MiniMax (цепочка стандартных слотов LoraLoaderModelOnly)
     minimax_loras = job_input.get("loras", [])
-    if minimax_loras and "9657" in wf and "inputs" in wf["9657"]:
-        for idx, lora_item in enumerate(minimax_loras, start=1):
-            lora_name = str(lora_item.get("name") or lora_item.get("file") or "").strip()
-            if not lora_name:
-                continue
-            if not lora_name.endswith(".safetensors"):
-                lora_name += ".safetensors"
-            strength = float(lora_item.get("strength", 1.0))
-            wf["9657"]["inputs"][f"lora_{idx}"] = {
-                "on": True,
-                "lora": lora_name,
-                "strength": strength
-            }
+    for slot_idx in range(1, 5):
+        slot_node_id = f"9657:{slot_idx}"
+        if slot_node_id in wf and "inputs" in wf[slot_node_id]:
+            if slot_idx <= len(minimax_loras):
+                lora_item = minimax_loras[slot_idx - 1]
+                lora_name = str(lora_item.get("name") or lora_item.get("file") or "").strip()
+                if lora_name and not lora_name.endswith(".safetensors"):
+                    lora_name += ".safetensors"
+                strength = float(lora_item.get("strength", 0.8))
+
+                wf[slot_node_id]["inputs"]["lora_name"] = lora_name
+                wf[slot_node_id]["inputs"]["strength_model"] = strength
+            else:
+                wf[slot_node_id]["inputs"]["strength_model"] = 0.0
 
     # 10. LoRA Krea 2
     krea_loras = job_input.get("krea_loras", [])
