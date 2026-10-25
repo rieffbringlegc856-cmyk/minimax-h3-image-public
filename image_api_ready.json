@@ -468,20 +468,60 @@
       "title": "Image Exists"
     }
   },
-  "9657": {
+  "9657:1": {
     "inputs": {
-      "PowerLoraLoaderHeaderWidget": {
-        "type": "PowerLoraLoaderHeaderWidget"
-      },
-      "➕ Add Lora": "",
+      "lora_name": "None",
+      "strength_model": 0.0,
       "model": [
         "9616",
         0
       ]
     },
-    "class_type": "Power Lora Loader (rgthree)",
+    "class_type": "LoraLoaderModelOnly",
     "_meta": {
-      "title": "MiniMax H3 Loras"
+      "title": "MiniMax LoRA Slot 1"
+    }
+  },
+  "9657:2": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:1",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 2"
+    }
+  },
+  "9657:3": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:2",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 3"
+    }
+  },
+  "9657:4": {
+    "inputs": {
+      "lora_name": "None",
+      "strength_model": 0.0,
+      "model": [
+        "9657:3",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "MiniMax LoRA Slot 4"
     }
   },
   "9669": {
@@ -1019,7 +1059,7 @@
     "inputs": {
       "switch": false,
       "on_false": [
-        "9657",
+        "9657:4",
         0
       ],
       "on_true": [
@@ -1037,7 +1077,7 @@
       "lora_name": "MiniMax/minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
       "strength_model": 0.85,
       "model": [
-        "9657",
+        "9657:4",
         0
       ]
     },
